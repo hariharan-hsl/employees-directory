@@ -1,0 +1,211 @@
+.employee-section {
+  margin-top:20px;
+  border-radius: 12px;
+}
+
+.employee-section h2 {
+  margin-bottom: 20px;
+  color: #1e293b;
+  font-size: 26px;
+}
+
+.employee-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap:15px;
+}
+
+.employee-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 24px 10px;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.employee-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+
+.employee-avatar h1{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 70px;
+  height: 70px;
+  color: #ffffff;
+  border-radius: 50%;
+}
+
+.employee-avatar h1 {
+  margin: 0;
+  font-size: 24px;
+  
+}
+
+.employee-details {
+  min-width: 0;
+}
+
+.employee-details h3 {
+  margin: 0 0 6px;
+  color: #172554;
+  font-size: 22px;
+}
+
+.employee-designation {
+  margin: 0 0 12px;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.department-badge {
+  display: inline-block;
+  margin-bottom: 12px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.department-badge.it {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+}
+
+.department-badge.hr {
+  background-color: #f3e8ff;
+  color: #7e22ce;
+}
+
+.department-badge.sales {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+.divider{
+  width:100%;
+  border-bottom:2px solid #d8dce0;
+ 
+}
+
+.employee-email,
+.employee-phone {
+  margin: 8px 0 0;
+  color: #475569;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+
+@media (max-width: 1024px) {
+  .employee-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+  }
+
+  .employee-card {
+    gap: 14px;
+    padding: 20px 14px;
+  }
+
+  .employee-avatar h1 {
+    width: 60px;
+    height: 60px;
+    font-size: 22px;
+  }
+
+  .employee-details h3 {
+    font-size: 19px;
+    overflow-wrap: anywhere;
+  }
+}
+
+
+@media (max-width: 600px) {
+  .employee-section {
+    margin-top: 15px;
+    padding: 10px;
+  }
+
+  .employee-section h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+  }
+
+  .employee-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .employee-card {
+    gap: 12px;
+    padding: 18px 14px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .employee-avatar h1 {
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .employee-details {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .employee-details h3 {
+    font-size: 18px;
+    overflow-wrap: anywhere;
+  }
+
+  .employee-designation {
+    font-size: 13px;
+  }
+
+  .department-badge {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+
+  .employee-email,
+  .employee-phone {
+    font-size: 12px;
+    overflow-wrap: anywhere;
+  }
+
+  .divider {
+    width: 100%;
+  }
+}
+
+
+@media (max-width: 360px) {
+  .employee-card {
+    gap: 10px;
+    padding: 14px 10px;
+  }
+
+  .employee-avatar h1 {
+    width: 42px;
+    height: 42px;
+    font-size: 16px;
+  }
+
+  .employee-details h3 {
+    font-size: 16px;
+  }
+
+  .employee-designation {
+    font-size: 12px;
+  }
+}
