@@ -63,54 +63,9 @@
   font-weight: bold;
 }
 
-
-@media (min-width: 1025px) {
-  .header {
-    padding: 24px 30px;
-  }
-
-  .company-logo {
-    width: 52px;
-    height: 52px;
-    font-size: 28px;
-    flex-shrink: 0;
-  }
-
-  .company-info h3 {
-    font-size: 22px;
-  }
-
-  .company-info p {
-    font-size: 14px;
-  }
-}
-
-
-@media (min-width: 601px) and (max-width: 1024px) {
-  .header {
-    padding: 20px;
-  }
-
-  .company-logo {
-    width: 48px;
-    height: 48px;
-    font-size: 26px;
-    flex-shrink: 0;
-  }
-
-  .company-info h3 {
-    font-size: 19px;
-  }
-
-  .company-info p {
-    font-size: 13px;
-  }
-}
-
 @media (max-width: 600px) {
   .header {
     padding: 16px;
-    gap: 12px;
   }
 
   .company-logo {
@@ -118,41 +73,13 @@
     height: 44px;
     font-size: 24px;
     font-weight: bold;
-    flex-shrink: 0;
-  }
-
-  .company-info {
-    min-width: 0;
   }
 
   .company-info h3 {
     font-size: 17px;
-    overflow-wrap: anywhere;
   }
 
   .company-info p {
     font-size: 12px;
-    overflow-wrap: anywhere;
-  }
-}
-
-@media (max-width: 360px) {
-  .header {
-    padding: 12px;
-    gap: 8px;
-  }
-
-  .company-logo {
-    width: 38px;
-    height: 38px;
-    font-size: 20px;
-  }
-
-  .company-info h3 {
-    font-size: 15px;
-  }
-
-  .company-info p {
-    font-size: 11px;
   }
 }

@@ -1,13 +1,27 @@
 import React from 'react'
 import "./SummarySection.css"
 
-const SummarySection = () => {
+const SummarySection = ({employees}) => {
+
+    const totalEmployees = employees.length;
+
+    const activeEmployees = employees.filter(
+        (employee)=>employee.status === "Active"
+    ).length
+
+    const inactiveEmployees = employees.filter(
+        (employee)=>employee.status === "Inactive"
+    ).length;
+
+   const totalDepartments = new Set(
+    employees.map((employee)=>employee.department)
+   ).size;
 
     const summaryData = [
-        {id:1,title:"Total Employees",logo:"fa-solid fa-user",count:48 ,colour:"5px solid #0d6b24"},
-        {id:2,title:"IT Department",logo:"fa-solid fa-code",count:20, colour:"5px solid #2e65cc"},
-        {id:3,title:"HR Department",logo:"fa-solid fa-users",count:8 ,colour:"	5px solid #d1380a"},
-        {id:4,title:"Sales Department",logo:"fa-solid fa-chart-line",count:14 ,colour:"5px solid #0d6b24"},
+        {id:1,title:"Total Employees",logo:"fa-solid fa-user",count:totalEmployees ,colour:"5px solid #0d6b24"},
+        {id:2,title:"Active",logo:"fa-solid fa-code",count:activeEmployees, colour:"5px solid #2e65cc"},
+        {id:3,title:"Inactive",logo:"fa-solid fa-users",count:inactiveEmployees ,colour:"	5px solid #d1380a"},
+        {id:4,title:"Departments",logo:"fa-solid fa-chart-line",count:totalDepartments ,colour:"5px solid #0d6b24"},
     ]
     return (
     <div>

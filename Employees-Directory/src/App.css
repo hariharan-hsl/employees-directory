@@ -1,6 +1,14 @@
+body{
+  font-weight:400;
+ 
+}
 .app-shell {
     margin:20px 100px;
 }
+.result{
+  font-weight:400;
+}
+
 
 @media (max-width: 1200px) {
   .app-shell {
@@ -16,3 +24,4 @@
 
   }
 }
+
