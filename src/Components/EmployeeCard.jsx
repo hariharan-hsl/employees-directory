@@ -36,6 +36,7 @@ const EmployeeCard = ({ employee }) => {
       </div>
     </div>
   );
+  
 };
 
 export default EmployeeCard;
