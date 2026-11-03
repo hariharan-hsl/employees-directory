@@ -5,8 +5,7 @@ const EmployeeSearchBox = ({
   setSearch,
   department,
   setDepartment,
-  departments,
-  clearFilters,
+  departments = [],
 }) => {
   return (
     <section className="employee-search">
@@ -17,9 +16,9 @@ const EmployeeSearchBox = ({
           type="text"
           className="search-input"
           placeholder="Search employees"
+          aria-label="Search employees"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-        
         />
 
         {search && (
@@ -33,28 +32,21 @@ const EmployeeSearchBox = ({
         )}
       </div>
 
-      <select
-        value={department}
-        onChange={(e) => setDepartment(e.target.value)}
-        className="department-select"
+      <div className="department-select-wrap">
+        <select
+          value={department}
+          onChange={(e) => setDepartment(e.target.value)}
+          className="department-select"
+        >
+          <option value="All">All Departments</option>
 
-      >
-        <option value="All">All Departments</option>
-
-        {departments.map((item) => (
-          <option key={item} value={item}>
-            {item}
-          </option>
-        ))}
-      </select>
-
-      <button
-        type="button"
-        className="clear-filters-btn"
-        onClick={clearFilters}
-      >
-        Clear Filters
-      </button>
+          {departments.map((item) => (
+            <option key={item} value={item}>
+              {item}
+            </option>
+          ))}
+        </select>
+      </div>
     </section>
   );
 };

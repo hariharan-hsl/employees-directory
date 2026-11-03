@@ -1,42 +1,69 @@
-import React from 'react'
-import "./SummarySection.css"
+import React from 'react';
+import "./SummarySection.css";
 
-const SummarySection = ({employees}) => {
+const SummarySection = ({ employees, totalEmployees = employees.length }) => {
+  const departmentCounts = employees.reduce((counts, employee) => {
+    const department = employee.company?.department;
 
-    const totalEmployees = employees.length;
+    if (department) {
+      counts[department] = (counts[department] || 0) + 1;
+    }
 
-    const activeEmployees = employees.filter(
-        (employee)=>employee.status === "Active"
-    ).length
+    return counts;
+  }, {});
 
-    const inactiveEmployees = employees.filter(
-        (employee)=>employee.status === "Inactive"
-    ).length;
+  const departmentStyles = (department) => {
+    const name = department.toLowerCase();
 
-   const totalDepartments = new Set(
-    employees.map((employee)=>employee.department)
-   ).size;
+    if (/\bit\b/.test(name) || name.includes("engineer") || name.includes("tech")) {
+      return { color: "#3974c6", icon: "fa-solid fa-code" };
+    }
 
-    const summaryData = [
-        {id:1,title:"Total Employees",logo:"fa-solid fa-user",count:totalEmployees ,colour:"5px solid #0d6b24"},
-        {id:2,title:"Active",logo:"fa-solid fa-code",count:activeEmployees, colour:"5px solid #2e65cc"},
-        {id:3,title:"Inactive",logo:"fa-solid fa-users",count:inactiveEmployees ,colour:"	5px solid #d1380a"},
-        {id:4,title:"Departments",logo:"fa-solid fa-chart-line",count:totalDepartments ,colour:"5px solid #0d6b24"},
-    ]
-    return (
-    <div>
-        <section className='summary-section'>
-            {
-                summaryData.map((item)=>(
-                    <div className='summary-card' key={item.id} style={{ borderLeft:item.colour }}>
-                        <h3>{item.title}</h3>
-                        <p><i className={item.logo}></i> {item.count}</p>
-                    </div>
-                ))
-            }
-        </section>
-    </div>
-  )
-}
+    if (name.includes("hr") || name.includes("human")) {
+      return { color: "#c74725", icon: "fa-solid fa-users" };
+    }
 
-export default SummarySection
+    if (name.includes("sales")) {
+      return { color: "#217a43", icon: "fa-solid fa-chart-line" };
+    }
+
+    return { color: "#6b5aa6", icon: "fa-solid fa-building" };
+  };
+
+  const summaryData = [
+    {
+      id: "total",
+      title: "Total Employees",
+      count: totalEmployees,
+      color: "#217a43",
+      icon: "fa-solid fa-user",
+    },
+    ...Object.entries(departmentCounts)
+      .sort(([departmentA, countA], [departmentB, countB]) =>
+        countB - countA || departmentA.localeCompare(departmentB)
+      )
+      .slice(0, 3)
+      .map(([department, count]) => ({
+        id: department,
+        title: `${department} Department`,
+        count,
+        ...departmentStyles(department),
+      })),
+  ];
+
+  return (
+    <section className="summary-section">
+      {summaryData.map((item) => (
+        <div key={item.id} className="summary-card" style={{ "--summary-accent": item.color }}>
+          <h3>{item.title}</h3>
+          <div className="summary-value">
+            <i className={`summary-icon ${item.icon}`} aria-hidden="true"></i>
+            <span className="summary-number">{item.count}</span>
+          </div>
+        </div>
+      ))}
+    </section>
+  );
+};
+
+export default SummarySection;
