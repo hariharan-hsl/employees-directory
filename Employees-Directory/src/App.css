@@ -1,43 +1,71 @@
 .app {
-  min-width: 1020px;
+  width: calc(100% - 48px);
+  max-width:1400px;
   margin: 0 auto;
-  padding:20px 80px;
+  padding: 8px 0 48px;
 }
 
 .status-message {
-  text-align: center;
-  padding: 30px 16px;
-  font-size: 18px;
+  width: calc(100% - 32px);
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 32px 16px;
   color: #334155;
+  font-size: 16px;
+  line-height: 1.6;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.status-message button {
+  margin-top: 16px;
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 8px;
+  background: #117451;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .error-message {
-  margin: 16px 0;
+  margin: 12px 0;
   padding: 12px 16px;
-  color: #b91c1c;
-  background-color: #fee2e2;
   border-radius: 8px;
+  background: #fee2e2;
+  color: #b91c1c;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
 }
 
 .load-more-container {
   display: flex;
   justify-content: center;
-  padding: 24px 0 0;
+  padding: 28px 0 0;
 }
 
 .load-more-button {
+  min-height: 44px;
   padding: 10px 24px;
-  border: none;
+  border: 0;
   border-radius: 999px;
   background: #2563eb;
   color: #ffffff;
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
-.load-more-button:hover {
+.load-more-button:hover:not(:disabled) {
   background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.load-more-button:focus-visible,
+.status-message button:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.35);
+  outline-offset: 3px;
 }
 
 .load-more-button:disabled {
@@ -45,11 +73,20 @@
   cursor: not-allowed;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 700px) {
   .app {
-    padding-left: 16px;
-    padding-right: 16px;
+    width: min(100% - 32px, 560px);
+    padding-top: 4px;
+    padding-bottom: 36px;
   }
 }
 
+@media (max-width: 380px) {
+  .app {
+    width: calc(100% - 24px);
+  }
 
+  .load-more-container {
+    padding-top: 20px;
+  }
+}

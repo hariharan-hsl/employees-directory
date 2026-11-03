@@ -1,9 +1,9 @@
 .employee-search {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 12px;
   width: 100%;
-  margin: 0 0 28px;
+  margin: 0 0 22px;
 }
 
 .search-input-box {
@@ -11,7 +11,7 @@
   display: flex;
   align-items: center;
   min-width: 0;
-  height: 54px;
+  height: 48px;
   padding: 0 18px;
   background: #f8fafc;
   border: 1px solid #dfe5ec;
@@ -30,7 +30,7 @@
   border: none;
   outline: none;
   background: transparent;
-  font-size: 18px;
+  font-size: 15px;
   color: #1f2937;
 }
 
@@ -58,14 +58,15 @@
 }
 
 .department-select {
+  width: 210px;
   min-width: 210px;
-  height: 54px;
+  height: 48px;
   padding: 0 40px 0 16px;
   border: 1px solid #dfe5ec;
   border-radius: 14px;
   background: #f8fafc;
   color: #1f2937;
-  font-size: 16px;
+  font-size: 14px;
   appearance: none;
   background-image: linear-gradient(45deg, transparent 50%, #6b7280 50%), linear-gradient(135deg, #6b7280 50%, transparent 50%);
   background-position: calc(100% - 18px) calc(50% - 2px), calc(100% - 12px) calc(50% - 2px);
@@ -83,10 +84,42 @@
   .employee-search {
     flex-direction: column;
     align-items: stretch;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .search-input-box {
+    flex: none;
+    width: 100%;
+    height: 46px;
+    padding: 0 13px;
+  }
+
+  .search-input {
+    font-size: 14px;
+  }
+
+  .department-select-wrap {
+    width: 100%;
   }
 
   .department-select {
     width: 100%;
     min-width: 0;
+    height: 46px;
+  }
+}
+
+@media (max-width: 360px) {
+  .search-input-box {
+    padding: 0 10px;
+  }
+
+  .search-icon {
+    margin-right: 7px;
+  }
+
+  .clear-search-btn {
+    padding: 6px 8px;
   }
 }

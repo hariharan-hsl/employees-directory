@@ -63,23 +63,32 @@
   font-weight: bold;
 }
 
-@media (max-width: 600px) {
+
+@media (max-width: 700px) {
   .header {
-    padding: 16px;
+    min-height: 64px;
+    padding: 0 20px;
   }
 
-  .company-logo {
-    width: 44px;
-    height: 44px;
-    font-size: 24px;
-    font-weight: bold;
+  .header-content {
+    min-height: 63px;
+  }
+}
+
+@media (max-width: 380px) {
+  .header {
+    padding: 0 12px;
+  }
+
+  .company-brand {
+    gap: 8px;
   }
 
   .company-info h3 {
-    font-size: 17px;
+    font-size: 14px;
   }
 
   .company-info p {
-    font-size: 12px;
+    font-size: 10px;
   }
 }
