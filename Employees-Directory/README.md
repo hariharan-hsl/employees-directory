@@ -11,6 +11,7 @@ This project demonstrates React component-based architecture, state management, 
 ## ✨ Features
 
 - **Employee Listing** – Display employee details in a structured card layout.
+- **Add Employees** – Save new employees, addresses, and pincodes in browser local storage with a default profile photo. DummyJSON simulates writes and does not persist them on its server.
 - **Search Employees** – Find employees by name using the search functionality.
 - **Department Filter** – Filter employees based on their departments.
 - **Summary Section** – Display employee statistics and summary information.
@@ -96,7 +97,7 @@ http://localhost:5173
 
 ## 💻 How It Works
 
-1. Employee information is stored in a JavaScript data file.
+1. Existing employee information is loaded from DummyJSON. Employees added through the form are saved in browser local storage and remain available in that browser after refresh.
 2. React components display the employee information dynamically.
 3. The search input allows users to find employees by name.
 4. The department dropdown filters employees by their department.

@@ -1,4 +1,4 @@
-
+import { NavLink } from 'react-router-dom';
 import React from 'react';
 import './Header.css';
 
@@ -15,6 +15,21 @@ const Header = () => {
             <p>HEPL Technologies</p>
           </div>
         </div>
+
+         <nav className="header-nav">
+        <NavLink to="/" end className="nav-link">
+          Home
+        </NavLink>
+
+        <NavLink
+          to="/add"
+          className={({ isActive }) =>
+            isActive ? "nav-link active" : "nav-link"
+          }
+        >
+          + Add Employee
+        </NavLink>
+      </nav>
 
         <div className="logo">HS</div>
       </div>

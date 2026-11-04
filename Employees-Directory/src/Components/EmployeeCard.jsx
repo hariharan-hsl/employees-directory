@@ -1,12 +1,13 @@
+import { Link } from "react-router-dom";
 const EmployeeCard = ({ employee }) => {
   const firstName = employee.firstName || "";
   const lastName = employee.lastName || "";
 
   const fullName = `${firstName} ${lastName}`.trim();
-  const initials = `${firstName[0] || ""}${lastName[0]}`;
+  const initials = `${firstName[0] || ""}${lastName[0] || ""}`;
 
-  const department = employee.company?.department;
-  const designation = employee.company?.title;
+  const department = employee.company?.department || "Other";
+  const designation = employee.company?.title || "Not Available";
 
   const colorMap = {
     IT: "#bbd5ff",
@@ -22,9 +23,17 @@ const EmployeeCard = ({ employee }) => {
     "#ae5fe4";
 
   return (
+ <Link to={`/employee/${employee.id}`} className="employee-card-link">
     <div className="employee-card">
       <div className="employee-avatar" style={{ backgroundColor: avatarColor }}>
-        <h2>{initials}</h2>
+        <img
+          src={employee.image || "/default-user.svg"}
+          alt=""
+          onError={(event) => {
+            event.currentTarget.src = "/default-user.svg";
+          }}
+        />
+        {!employee.image && <h2>{initials}</h2>}
       </div>
 
       <div className="employee-details">
@@ -49,6 +58,7 @@ const EmployeeCard = ({ employee }) => {
         </p>
       </div>
     </div>
+ </Link>
   );
 };
 

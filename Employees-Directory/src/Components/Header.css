@@ -63,6 +63,32 @@
   font-weight: bold;
 }
 
+/* add on add-to-employee */
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #475569;
+  font-weight: 600;
+  padding: 10px 14px;
+  border-radius: 8px;
+  transition: 0.2s;
+}
+
+.nav-link:hover {
+  background-color: #f0fdf4;
+  color: #08764f;
+}
+
+.nav-link.active {
+  background-color: #08764f;
+  color: white;
+}
+
 
 @media (max-width: 700px) {
   .header {
