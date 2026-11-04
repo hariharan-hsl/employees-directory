@@ -1,6 +1,7 @@
 
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import userImage from "../assets/user.png";
 import "./AddEmployee.css";
 
 const AddEmployee = ({ addEmployee }) => {
@@ -48,7 +49,7 @@ const AddEmployee = ({ addEmployee }) => {
         email: formData.email.trim(),
         phone: formData.phone.trim(),
         age: Number(formData.age),
-        image: "/default-user.svg",
+        image: userImage,
         address: {
           address: formData.address.trim(),
           city: formData.city.trim(),
@@ -91,6 +92,11 @@ const AddEmployee = ({ addEmployee }) => {
         className="add-employee-form"
         onSubmit={handleSubmit}
       >
+        <div className="employee-photo-preview">
+          <img src={userImage} alt="Default employee profile" />
+          <span>Default employee photo</span>
+        </div>
+
         <div className="form-grid">
 
           <div className="form-group">

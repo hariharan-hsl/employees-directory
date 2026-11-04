@@ -1,6 +1,7 @@
+import userImage from "./assets/user.png";
 const employees_api = "https://dummyjson.com/users";
 const local_employees_key = "employees-directory:employees";
-const default_employee_image = "/default-user.svg";
+const default_employee_image = userImage;
 
 const getLocalEmployees = () => {
   const savedEmployees = localStorage.getItem(local_employees_key);
