@@ -1,22 +1,29 @@
 import { useState } from "react";
-
-import SummarySection from "../components/SummarySection";
-import EmployeeSearchBox from "../components/EmployeeSearchBox";
-import EmployeeList from "../components/EmployeeList";
+import useDebounce from "../hooks/useDebounce";
+import SummarySection from "../Components/SummarySection";
+import EmployeeSearchBox from "../Components/EmployeeSearchBox";
+import EmployeeList from "../Components/EmployeeList";
+import { useEmployee } from "../Context/EmployeeContext";
 
 import "./Home.css";
 
-const Home = ({
-  employees,
-  loading,
-  error,
-  setError,
-  total,
-  loadMoreEmployees,
-  loadingmore,
-}) => {
+const Home = () => {
+
+    const {
+      employees,
+      loading,
+      error,
+      total,
+      loadMoreEmployees,
+      loadingmore
+    } = useEmployee();
+
+
   const [search, setSearch] = useState("");
   const [department, setDepartment] = useState("All");
+  const debouncedSearch = useDebounce(search,400);
+  const isSearching = search !==debouncedSearch;
+
 
   const departments = [
     ...new Set(
@@ -28,10 +35,9 @@ const Home = ({
 
 
   const filteredEmployees = employees.filter((employee) => {
-    const fullName =
-      `${employee.firstName} ${employee.lastName}`.toLowerCase();
+    const fullName = `${employee.firstName} ${employee.lastName}`.toLowerCase();
 
-    const searchText = search.trim().toLowerCase();
+    const searchText = debouncedSearch.trim().toLowerCase();
 
     const matchesSearch =
       fullName.includes(searchText) ||
@@ -80,6 +86,10 @@ const Home = ({
         setDepartment={setDepartment}
         departments={departments}
       />
+
+      {isSearching && (
+        <p className="status-message">Searching...</p>
+      )}
 
       {filteredEmployees.length === 0 ? (
         <p className="status-message">

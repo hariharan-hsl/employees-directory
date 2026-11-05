@@ -1,10 +1,12 @@
 
+import { useEmployees } from "../Context/EmployeeContext";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import userImage from "../assets/user.png";
 import "./AddEmployee.css";
 
-const AddEmployee = ({ addEmployee }) => {
+const AddEmployee = () => {
+  const {addEmployee } = useEmployees()
   const navigate = useNavigate();
 
   const [saving, setSaving] = useState(false);
@@ -25,7 +27,7 @@ const AddEmployee = ({ addEmployee }) => {
     country: "",
   });
 
-  // Handle input changes
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
