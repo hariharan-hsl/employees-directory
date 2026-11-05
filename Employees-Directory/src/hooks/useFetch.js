@@ -11,7 +11,7 @@ const useFetch = (url) =>{
                 setError("");
 
                 const response = await fetch(url);
-
+ 
                 if(!response.ok){
                     throw new Error("Data not Fount !")
                 }
