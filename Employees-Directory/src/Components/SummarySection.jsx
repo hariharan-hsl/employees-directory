@@ -1,5 +1,4 @@
 import React from 'react';
-import "./SummarySection.css";
 
 const SummarySection = ({ employees, totalEmployees = employees.length }) => {
   const departmentCounts = employees.reduce((counts, employee) => {
@@ -52,13 +51,13 @@ const SummarySection = ({ employees, totalEmployees = employees.length }) => {
   ];
 
   return (
-    <section className="summary-section">
+    <section className="my-5 mb-[22px] grid grid-cols-4 gap-4 max-[900px]:grid-cols-2 max-[900px]:gap-[14px] max-[520px]:my-4 max-[520px]:mb-5 max-[520px]:gap-2.5">
       {summaryData.map((item) => (
-        <div key={item.id} className="summary-card" style={{ "--summary-accent": item.color }}>
-          <h3>{item.title}</h3>
-          <div className="summary-value">
-            <i className={`summary-icon ${item.icon}`} aria-hidden="true"></i>
-            <span className="summary-number">{item.count}</span>
+        <div key={item.id} className="flex min-h-[108px] min-w-0 flex-col justify-center rounded-xl border border-[#e8e9eb] border-l-4 bg-white px-[18px] py-4 shadow-[0_2px_6px_rgba(15,23,42,0.045)] max-[520px]:min-h-[94px] max-[520px]:px-[15px] max-[520px]:py-[14px]" style={{ borderLeftColor: item.color }}>
+          <h3 className="mb-3 break-words text-[15px] leading-[1.35] font-semibold text-[#55575b] max-[520px]:mb-[9px] max-[520px]:text-sm">{item.title}</h3>
+          <div className="flex items-center gap-2.5 font-bold text-[#242629]">
+            <i className={`${item.icon} w-[22px] text-xl`} style={{ color: item.color }} aria-hidden="true"></i>
+            <span className="text-[26px] leading-none text-[#25272a] max-[520px]:text-[23px]">{item.count}</span>
           </div>
         </div>
       ))}

@@ -5,8 +5,6 @@ import EmployeeSearchBox from "../Components/EmployeeSearchBox";
 import EmployeeList from "../Components/EmployeeList";
 import { useEmployee } from "../Context/EmployeeContext";
 
-import "./Home.css";
-
 const Home = () => {
 
     const {
@@ -52,14 +50,14 @@ const Home = () => {
   });
 
   if (loading) {
-    return <p className="status-message">Loading employees...</p>;
+    return <p className="mx-auto w-[calc(100%-32px)] max-w-[640px] wrap-anywhere px-4 py-8 text-center text-base leading-[1.6] text-slate-700">Loading employees...</p>;
   }
 
   if (error && employees.length === 0) {
     return (
-      <div className="status-message">
+      <div className="mx-auto w-[calc(100%-32px)] max-w-[640px] wrap-anywhere px-4 py-8 text-center text-base leading-[1.6] text-slate-700">
         <p>Error: {error}</p>
-        <button onClick={() => window.location.reload()}>
+        <button className="mt-4 cursor-pointer rounded-lg border-0 bg-[#117451] px-5 py-2.5 font-semibold text-white focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-[rgba(37,99,235,0.35)]" onClick={() => window.location.reload()}>
           Retry
         </button>
       </div>
@@ -67,9 +65,9 @@ const Home = () => {
   }
 
   return (
-    <div className="app">
+    <div className="mx-auto w-[calc(100%-48px)] max-w-[1400px] pt-2 pb-12 max-[700px]:w-[min(100%-32px,560px)] max-[700px]:pt-1 max-[700px]:pb-9 max-[380px]:w-[calc(100%-24px)]">
       {error && (
-        <p className="error-message" role="alert">
+        <p className="my-3 wrap-anywhere rounded-lg bg-red-100 px-4 py-3 leading-6 text-red-700" role="alert">
           {error}
         </p>
       )}
@@ -88,11 +86,11 @@ const Home = () => {
       />
 
       {isSearching && (
-        <p className="status-message">Searching...</p>
+        <p className="mx-auto w-[calc(100%-32px)] max-w-[640px] wrap-anywhere px-4 py-8 text-center text-base leading-[1.6] text-slate-700">Searching...</p>
       )}
 
       {filteredEmployees.length === 0 ? (
-        <p className="status-message">
+        <p className="mx-auto w-[calc(100%-32px)] max-w-[640px] wrap-anywhere px-4 py-8 text-center text-base leading-[1.6] text-slate-700">
           No employees found. Try a different search or department.
         </p>
       ) : (
@@ -100,9 +98,9 @@ const Home = () => {
       )}
 
       {employees.length < total && (
-        <div className="load-more-container">
+        <div className="flex justify-center pt-7 max-[380px]:pt-5">
           <button
-            className="load-more-button"
+            className="min-h-11 cursor-pointer rounded-full border-0 bg-blue-600 px-6 py-2.5 text-[15px] font-semibold text-white transition-[background-color,transform] duration-200 hover:-translate-y-px hover:bg-blue-700 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-[rgba(37,99,235,0.35)] disabled:cursor-not-allowed disabled:opacity-60"
             onClick={loadMoreEmployees}
             disabled={loadingmore}
           >

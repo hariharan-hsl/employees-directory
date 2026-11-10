@@ -7,8 +7,6 @@ import EmployeeDetails from "./Pages/EmployeeDetails";
 import AddEmployee from "./Pages/AddEmployee";
 import NotFound from "./Pages/NotFound";
 
-import "./App.css";
-
 function App() {
 
   return (
