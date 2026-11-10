@@ -19,6 +19,8 @@ const initialForm = {
   country: "",
 };
 
+
+// Remove whitespace trim function
 const trimFormValues = (form) =>
   Object.fromEntries(
     Object.entries(form).map(([key, value]) => [
@@ -136,7 +138,7 @@ const AddEmployee = () => {
     return errors;
   };
 
-  // Handle
+  // HandleChange
   const handleChange = (e) => {
     const { name, value } = e.target;
 
