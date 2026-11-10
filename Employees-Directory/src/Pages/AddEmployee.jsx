@@ -60,6 +60,7 @@ const AddEmployee = () => {
     const age = trimmedForm.age;
     const postalCode = trimmedForm.postalCode;
 
+    // pattern fields
     const namePattern = /^[A-Za-z]+$/;
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phonePattern = /^\d{10}$/;
