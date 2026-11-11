@@ -46,7 +46,7 @@ const AddEmployee = () => {
   const [saving, setSaving] = useState(false);
   const [errors, setErrors] = useState({});
 
-  // Validate form fields
+  // Validate form fields:
   const validate = (form) => {
     const errors = {};
     const trimmedForm = trimFormValues(form);
