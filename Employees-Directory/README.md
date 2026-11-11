@@ -17,7 +17,7 @@ This project demonstrates React component-based architecture, state management, 
 - **Summary Section** – Display employee statistics and summary information.
 - **Reusable Components** – Build the application using reusable React components.
 - **Dynamic Rendering** – Render employee data dynamically using the JavaScript `map()` method.
-- **State Management** – Manage search and department filters using React's `useState` hook.
+- **State Management** – Manage employee data and filters with Redux Toolkit, async thunks, and selectors.
 - **Responsive Design** – Provide a user-friendly experience across desktop, tablet, and mobile devices.
 - **Clean UI** – Simple and professional interface for managing employee information.
 
@@ -98,10 +98,9 @@ http://localhost:5173
 ## 💻 How It Works
 
 1. Existing employee information is loaded from DummyJSON. Employees added through the form are saved in browser local storage and remain available in that browser after refresh.
-2. React components display the employee information dynamically.
-3. The search input allows users to find employees by name.
-4. The department dropdown filters employees by their department.
-5. React's `useState` hook manages the search and filter values.
+2. Redux Toolkit loads employees with `fetchEmployees` and saves new employees from the add form.
+3. The filters slice stores search and department values; selectors calculate filtered employees and department counts.
+4. React components read state with `useSelector` and update it with `useDispatch`.
 6. The employee list updates automatically when the search or department selection changes.
 
 ## 🎯 Learning Outcomes

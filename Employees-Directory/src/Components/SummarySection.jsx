@@ -1,15 +1,9 @@
-import React from 'react';
+import { useSelector } from "react-redux";
+import { selectDepartmentCounts } from "../features/employees/employeeSelectors";
 
-const SummarySection = ({ employees, totalEmployees = employees.length }) => {
-  const departmentCounts = employees.reduce((counts, employee) => {
-    const department = employee.company?.department;
-
-    if (department) {
-      counts[department] = (counts[department] || 0) + 1;
-    }
-
-    return counts;
-  }, {});
+const SummarySection = ({ totalEmployees }) => {
+  //Department count Redux-Store:
+  const departmentCounts = useSelector(selectDepartmentCounts);
 
   const departmentStyles = (department) => {
     const name = department.toLowerCase();

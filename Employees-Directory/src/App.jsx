@@ -1,4 +1,6 @@
 
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 
 import Header from "./Components/Header";
@@ -6,8 +8,14 @@ import Home from "./Pages/Home";
 import EmployeeDetails from "./Pages/EmployeeDetails";
 import AddEmployee from "./Pages/AddEmployee";
 import NotFound from "./Pages/NotFound";
+import { fetchEmployees } from "./features/employees/employeesSlice";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchEmployees());
+  }, [dispatch]);
 
   return (
     <>

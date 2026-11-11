@@ -1,8 +1,10 @@
 
-import { useEmployees } from "../Context/EmployeeContext";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import userImage from "../assets/user.png";
+import { addEmployee } from "../features/employees/employeesSlice";
+import { selectAllEmployees } from "../features/employees/employeeSelectors";
 
 const initialForm = {
   firstName: "",
@@ -39,7 +41,8 @@ const submitErrorMessageClassName =
   "mt-1 mb-3 rounded-lg bg-red-100 px-4 py-3 text-[13px] leading-6 text-red-600";
 
 const AddEmployee = () => {
-  const { addEmployee, employees } = useEmployees();
+  const dispatch = useDispatch();
+  const employees = useSelector(selectAllEmployees);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState(initialForm);
@@ -205,8 +208,7 @@ const AddEmployee = () => {
         },
       };
 
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      await addEmployee(employeeData);
+      await dispatch(addEmployee(employeeData)).unwrap();
 
       setFormData(initialForm);
       setErrors({});

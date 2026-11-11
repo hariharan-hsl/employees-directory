@@ -1,16 +1,14 @@
 
 import { useParams, Link } from "react-router-dom";
-import { useEmployees } from "../Context/EmployeeContext";
+import { useSelector } from "react-redux";
 import useFetch from "../hooks/useFetch";
+import { selectAllEmployees } from "../features/employees/employeeSelectors";
 
 const EmployeeDetails = () => {
   const { id } = useParams();
+  const employees = useSelector(selectAllEmployees);
 
-
-  const { employees } = useEmployees();
-
-
-  const employeeFromContext = employees.find(
+  const employeeFromStore = employees.find(
     (employee) => String(employee.id) === String(id)
   );
 
@@ -20,14 +18,14 @@ const EmployeeDetails = () => {
     loading,
     error,
   } = useFetch(
-    employeeFromContext
+    employeeFromStore
       ? null
       : `https://dummyjson.com/users/${id}`
   );
 
-  const employee = employeeFromContext || fetchedEmployee;
+  const employee = employeeFromStore || fetchedEmployee;
 
-  if (!employeeFromContext && loading) {
+  if (!employeeFromStore && loading) {
     return (
       <p className="mx-auto w-[calc(100%-32px)] max-w-[640px] overflow-wrap-anywhere px-4 py-8 text-center text-base leading-[1.6] text-slate-700">
         Loading employee profile...
