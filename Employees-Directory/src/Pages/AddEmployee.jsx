@@ -208,7 +208,14 @@ const AddEmployee = () => {
         },
       };
 
-      await dispatch(addEmployee(employeeData)).unwrap();
+  //2-second timer
+  await Promise.all([
+    dispatch(addEmployee(employeeData)).unwrap(),
+
+    new Promise((resolve) => setTimeout(resolve, 1000)),
+  ]);
+
+
 
       setFormData(initialForm);
       setErrors({});
@@ -493,12 +500,12 @@ const AddEmployee = () => {
           </Link>
 
           <button
-            type="submit"
-            className="cursor-pointer rounded-lg border-0 bg-[#08764f] px-[22px] py-3 text-sm font-semibold text-white hover:bg-[#065f40] max-[600px]:text-center disabled:cursor-not-allowed disabled:opacity-60"
-            disabled={saving}
-          >
-            {saving ? "Adding..." : "Add Employee"}
-          </button>
+  type="submit"
+  disabled={saving}
+  className="cursor-pointer rounded-lg border-0 bg-[#08764f] px-[22px] py-3 text-sm font-semibold text-white hover:bg-[#065f40] disabled:cursor-not-allowed disabled:opacity-60"
+>
+  {saving ? "Adding..." : "Add Employee"}
+</button>
         </div>
       </form>
     </div>

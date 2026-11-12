@@ -27,7 +27,7 @@ const filtersSlice  = createSlice({
 });
 
 export const {
-      setSearch,
+  setSearch,
   setDepartment,
   clearFilters,
 }  =  filtersSlice.actions; 
