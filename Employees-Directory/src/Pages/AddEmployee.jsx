@@ -49,7 +49,7 @@ const AddEmployee = () => {
   const [saving, setSaving] = useState(false);
   const [errors, setErrors] = useState({});
 
-  // Validate form fields:
+
   const validate = (form) => {
     const errors = {};
     const trimmedForm = trimFormValues(form);
@@ -63,7 +63,7 @@ const AddEmployee = () => {
     const age = trimmedForm.age;
     const postalCode = trimmedForm.postalCode;
 
-    // pattern fields
+
     const namePattern = /^[A-Za-z]+$/;
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phonePattern = /^\d{10}$/;
@@ -142,7 +142,7 @@ const AddEmployee = () => {
     return errors;
   };
 
-  // HandleChange
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
