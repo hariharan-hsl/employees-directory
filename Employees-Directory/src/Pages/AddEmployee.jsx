@@ -22,7 +22,7 @@ const initialForm = {
 };
 
 
-// Remove whitespace trim function
+
 const trimFormValues = (form) =>
   Object.fromEntries(
     Object.entries(form).map(([key, value]) => [
