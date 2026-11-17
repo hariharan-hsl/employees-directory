@@ -428,6 +428,7 @@ const AddEmployee = () => {
           </div>
 
           <div className="flex flex-col gap-2">
+          
             <label className={labelClassName} htmlFor="state">State</label>
             <input
               id="state"
