@@ -1,12 +1,16 @@
 
 import { useState } from "react";
+import type { ChangeEvent, FormEvent, FocusEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import userImage from "../assets/user.png";
 import { addEmployee } from "../features/employees/employeesSlice";
 import { selectAllEmployees } from "../features/employees/employeeSelectors";
+import type { AppDispatch, RootState } from "../store/store";
+import type { Department, EmployeeCreateData, EmployeeForm, FormErrors } from "../types";
+import { departmentOptions } from "../types";
 
-const initialForm = {
+const initialForm: EmployeeForm = {
   firstName: "",
   lastName: "",
   email: "",
@@ -23,13 +27,12 @@ const initialForm = {
 
 
 
-const trimFormValues = (form) =>
-  Object.fromEntries(
-    Object.entries(form).map(([key, value]) => [
-      key,
-      typeof value === "string" ? value.trim() : value,
-    ])
-  );
+const trimFormValues = (form: EmployeeForm): EmployeeForm => ({
+  firstName: form.firstName.trim(), lastName: form.lastName.trim(), email: form.email.trim(),
+  phone: form.phone.trim(), designation: form.designation.trim(), department: form.department,
+  age: form.age.trim(), address: form.address.trim(), city: form.city.trim(), state: form.state.trim(),
+  postalCode: form.postalCode.trim(), country: form.country.trim(),
+});
 
 const fieldClassName =
   "box-border w-full rounded-lg border border-gray-300 bg-white px-[14px] py-3 text-sm outline-none focus:border-[#08764f] focus:shadow-[0_0_0_3px_rgba(8,118,79,0.1)]";
@@ -41,17 +44,17 @@ const submitErrorMessageClassName =
   "mt-1 mb-3 rounded-lg bg-red-100 px-4 py-3 text-[13px] leading-6 text-red-600";
 
 const AddEmployee = () => {
-  const dispatch = useDispatch();
-  const employees = useSelector(selectAllEmployees);
+  const dispatch = useDispatch<AppDispatch>();
+  const employees = useSelector((state: RootState) => selectAllEmployees(state));
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState(initialForm);
   const [saving, setSaving] = useState(false);
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<FormErrors>({});
 
 
-  const validate = (form) => {
-    const errors = {};
+  const validate = (form: EmployeeForm): FormErrors => {
+    const errors: FormErrors = {};
     const trimmedForm = trimFormValues(form);
 
     const firstName = trimmedForm.firstName;
@@ -143,13 +146,20 @@ const AddEmployee = () => {
   };
 
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
 
-    setFormData((previous) => ({
-      ...previous,
-      [name]: value,
-    }));
+    setFormData((previous) => {
+      if (name === "department") {
+        if (!departmentOptions.includes(value as Department)) {
+          return previous;
+        }
+
+        return { ...previous, department: value as Department };
+      }
+
+      return { ...previous, [name]: value };
+    });
 
     setErrors((previous) => ({
       ...previous,
@@ -158,19 +168,19 @@ const AddEmployee = () => {
   };
 
   // Validate
-  const handleBlur = (e) => {
+  const handleBlur = (e: FocusEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name } = e.target;
 
     const validationErrors = validate(trimFormValues(formData));
 
     setErrors((previous) => ({
       ...previous,
-      [name]: validationErrors[name] || "",
+      [name]: validationErrors[name as keyof FormErrors] || "",
     }));
   };
 
   // Submit employee details
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (saving) {
@@ -191,7 +201,7 @@ const AddEmployee = () => {
     try {
       setSaving(true);
 
-      const employeeData = {
+      const employeeData: EmployeeCreateData = {
         ...trimmedForm,
         age: Number(trimmedForm.age),
         image: userImage,
@@ -224,7 +234,7 @@ const AddEmployee = () => {
     } catch (error) {
       setErrors((previous) => ({
         ...previous,
-        submit: error.message || "Unable to add employee",
+        submit: error instanceof Error ? error.message : "Unable to add employee",
       }));
     } finally {
       setSaving(false);

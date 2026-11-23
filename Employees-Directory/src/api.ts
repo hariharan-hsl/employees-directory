@@ -1,14 +1,15 @@
 import userImage from "./assets/user.png";
+import type { ApiUsersResponse, Employee, EmployeeCreateData, EmployeeId, EmployeeResponse } from "./types";
 const employees_api = "https://dummyjson.com/users";
 const local_employees_key = "employees-directory:employees";
 const default_employee_image = userImage;
 
-const getLocalEmployees = () => {
+const getLocalEmployees = (): Employee[] => {
   const savedEmployees = localStorage.getItem(local_employees_key);
   return savedEmployees ? JSON.parse(savedEmployees) : [];
 };
 
-export const getEmployees = async (limit = 30, skip = 0) => {
+export const getEmployees = async (limit = 30, skip = 0): Promise<EmployeeResponse> => {
   const response = await fetch(
     `${employees_api}?limit=${limit}&skip=${skip}`
   );
@@ -17,7 +18,7 @@ export const getEmployees = async (limit = 30, skip = 0) => {
     throw new Error("Employee not found");
   }
 
-  const data = await response.json();
+  const data = (await response.json()) as ApiUsersResponse;
   const localEmployees = getLocalEmployees();
 
   return {
@@ -26,7 +27,7 @@ export const getEmployees = async (limit = 30, skip = 0) => {
   };
 };
 
-export const createEmployee = async (employee) => {
+export const createEmployee = async (employee: EmployeeCreateData): Promise<Employee> => {
   const localEmployees = getLocalEmployees();
   const newEmployee = {
     ...employee,
@@ -42,7 +43,7 @@ export const createEmployee = async (employee) => {
   return newEmployee;
 };
 
-export const getEmployeeById = async (id) => {
+export const getEmployeeById = async (id: EmployeeId): Promise<Employee> => {
   const localEmployee = getLocalEmployees().find(
     (employee) => String(employee.id) === String(id)
   );
@@ -57,5 +58,5 @@ export const getEmployeeById = async (id) => {
     throw new Error("Employee not found");
   }
 
-  return await response.json();
+  return (await response.json()) as Employee;
 };

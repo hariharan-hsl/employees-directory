@@ -1,11 +1,13 @@
 import { useSelector } from "react-redux";
 import { selectDepartmentCounts } from "../features/employees/employeeSelectors";
+import type { RootState } from "../store/store";
+interface SummarySectionProps { totalEmployees: number; }
 
-const SummarySection = ({ totalEmployees }) => {
+const SummarySection = ({ totalEmployees }: SummarySectionProps) => {
   //Department count Redux-Store:
-  const departmentCounts = useSelector(selectDepartmentCounts);
+  const departmentCounts = useSelector((state: RootState) => selectDepartmentCounts(state));
 
-  const departmentStyles = (department) => {
+  const departmentStyles = (department: string): { color: string; icon: string } => {
     const name = department.toLowerCase();
 
     if (/\bit\b/.test(name) || name.includes("engineer") || name.includes("tech")) {

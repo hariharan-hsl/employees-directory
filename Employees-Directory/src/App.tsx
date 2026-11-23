@@ -9,9 +9,10 @@ import EmployeeDetails from "./Pages/EmployeeDetails";
 import AddEmployee from "./Pages/AddEmployee";
 import NotFound from "./Pages/NotFound";
 import { fetchEmployees } from "./features/employees/employeesSlice";
+import type { AppDispatch } from "./store/store";
 
 function App() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     dispatch(fetchEmployees());

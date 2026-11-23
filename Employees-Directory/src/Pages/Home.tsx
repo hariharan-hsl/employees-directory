@@ -17,21 +17,22 @@ import {
   selectSearch,
   selectTotalEmployees,
 } from "../features/employees/employeeSelectors";
+import type { AppDispatch, RootState } from "../store/store";
 
 const Home = () => {
-  const dispatch = useDispatch();
-  const employees = useSelector(selectAllEmployees);
-  const search = useSelector(selectSearch);
-  const department = useSelector(selectDepartment);
-  const status = useSelector(selectEmployeeStatus);
-  const error = useSelector(selectEmployeeError);
-  const loadMoreError = useSelector(selectLoadMoreError);
-  const loadingMore = useSelector(selectLoadingMore);
-  const total = useSelector(selectTotalEmployees);
-  const departmentCounts = useSelector(selectDepartmentCounts);
+  const dispatch = useDispatch<AppDispatch>();
+  const employees = useSelector((state: RootState) => selectAllEmployees(state));
+  const search = useSelector((state: RootState) => selectSearch(state));
+  const department = useSelector((state: RootState) => selectDepartment(state));
+  const status = useSelector((state: RootState) => selectEmployeeStatus(state));
+  const error = useSelector((state: RootState) => selectEmployeeError(state));
+  const loadMoreError = useSelector((state: RootState) => selectLoadMoreError(state));
+  const loadingMore = useSelector((state: RootState) => selectLoadingMore(state));
+  const total = useSelector((state: RootState) => selectTotalEmployees(state));
+  const departmentCounts = useSelector((state: RootState) => selectDepartmentCounts(state));
   const debouncedSearch = useDebounce(search, 400);
   const isSearching = search !== debouncedSearch;
-  const filteredEmployees = useSelector((state) =>
+  const filteredEmployees = useSelector((state: RootState) =>
     selectFilteredEmployees(state, debouncedSearch)
   );
   const departments = Object.keys(departmentCounts);
@@ -70,9 +71,9 @@ const Home = () => {
 
       <EmployeeSearchBox
         search={search}
-        setSearch={(value) => dispatch(setSearch(value))}
+        setSearch={(value: string) => dispatch(setSearch(value))}
         department={department}
-        setDepartment={(value) => dispatch(setDepartment(value))}
+        setDepartment={(value: string) => dispatch(setDepartment(value))}
         departments={departments}
       />
       {(search || department !== "All") && (

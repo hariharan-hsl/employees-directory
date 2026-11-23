@@ -1,6 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { FiltersState } from "../../types";
 
-const initialState = {
+const initialState: FiltersState = {
   search: "",
   department: "All",
 };
@@ -11,11 +12,11 @@ const filtersSlice  = createSlice({
       initialState,
 
     reducers:{
-         setSearch: (state, action) => {
+         setSearch: (state, action: PayloadAction<string>) => {
       state.search = action.payload;
     },
 
-    setDepartment: (state, action) => {
+    setDepartment: (state, action: PayloadAction<string>) => {
       state.department = action.payload;
     },
 

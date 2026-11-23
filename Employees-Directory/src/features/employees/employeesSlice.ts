@@ -1,8 +1,10 @@
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { createEmployee, getEmployees } from "../../api";
+import type { EmployeeCreateData, EmployeeResponse, EmployeeState } from "../../types";
+import type { RootState } from "../../store/store";
 
-export const fetchEmployees = createAsyncThunk(
+export const fetchEmployees = createAsyncThunk<EmployeeResponse>(
   "employees/fetchEmployees",
   async () => {
     return await getEmployees(20, 0);
@@ -10,10 +12,10 @@ export const fetchEmployees = createAsyncThunk(
 );
 
 // Load more employees
-export const fetchMoreEmployees = createAsyncThunk(
+export const fetchMoreEmployees = createAsyncThunk<EmployeeResponse>(
   "employees/fetchMoreEmployees",
   async (_, { getState }) => {
-    const skip = getState().employees.skip;
+    const skip = (getState() as RootState).employees.skip;
     return await getEmployees(10, skip);
   }
 );
@@ -21,24 +23,27 @@ export const fetchMoreEmployees = createAsyncThunk(
 // Add-employee
 export const addEmployee = createAsyncThunk(
   "employees/addEmployee",
-  async (employeeData) => {
+  async (employeeData: EmployeeCreateData) => {
     return await createEmployee(employeeData);
   }
 );
 
+const initialState: EmployeeState = {
+  employees: [],
+  total: 0,
+  skip: 0,
+  status: "idle",
+  error: null,
+  loadMoreError: null,
+  loadingMore: false,
+  addStatus: "idle",
+  addError: null,
+};
+
 const employeesSlice = createSlice({
   name: "employees",
 
-  initialState: {
-    employees: [],
-    total: 0,
-    skip: 0,
-    status: "idle",
-    error: null,
-    loadingMore: false,
-    addStatus: "idle",
-    addError: null,
-  },
+  initialState,
 
   reducers: {},
 

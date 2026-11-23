@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+import type { SyntheticEvent } from "react";
+import type { Employee } from "../types";
 
-const departmentBadgeClasses = (department) => {
+const departmentBadgeClasses = (department: string): string => {
   const name = department.toLowerCase();
 
   if (["it", "it-department", "engineering"].includes(name)) {
@@ -18,7 +20,7 @@ const departmentBadgeClasses = (department) => {
   return "bg-gray-200 text-gray-700";
 };
 
-const EmployeeCard = ({ employee }) => {
+const EmployeeCard = ({ employee }: { employee: Employee }) => {
   const firstName = employee.firstName || "";
   const lastName = employee.lastName || "";
 
@@ -28,7 +30,7 @@ const EmployeeCard = ({ employee }) => {
   const department = employee.company?.department || "Other";
   const designation = employee.company?.title || "Not Available";
 
-  const colorMap = {
+  const colorMap: Record<string, string> = {
     IT: "#bbd5ff",
     HR: "#ef476f",
     Sales: "#1bbf8d",
@@ -52,7 +54,7 @@ const EmployeeCard = ({ employee }) => {
           src={employee.image || "/default-user.svg"}
           alt=""
           className="h-full w-full rounded-full object-cover"
-          onError={(event) => {
+          onError={(event: SyntheticEvent<HTMLImageElement>) => {
             event.currentTarget.src = "/default-user.svg";
           }}
         />

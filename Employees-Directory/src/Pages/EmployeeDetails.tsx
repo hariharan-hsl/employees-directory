@@ -3,13 +3,15 @@ import { useParams, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import useFetch from "../hooks/useFetch";
 import { selectAllEmployees } from "../features/employees/employeeSelectors";
+import type { RootState } from "../store/store";
+import type { Employee } from "../types";
 
 const EmployeeDetails = () => {
   const { id } = useParams();
-  const employees = useSelector(selectAllEmployees);
+  const employees = useSelector((state: RootState) => selectAllEmployees(state));
 
   const employeeFromStore = employees.find(
-    (employee) => String(employee.id) === String(id)
+    (employee: Employee) => String(employee.id) === String(id)
   );
 
 
@@ -17,7 +19,7 @@ const EmployeeDetails = () => {
     data: fetchedEmployee,
     loading,
     error,
-  } = useFetch(
+  } = useFetch<Employee>(
     employeeFromStore
       ? null
       : `https://dummyjson.com/users/${id}`

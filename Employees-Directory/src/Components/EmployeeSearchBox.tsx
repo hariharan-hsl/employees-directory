@@ -1,10 +1,18 @@
+interface EmployeeSearchBoxProps {
+  search: string;
+  setSearch: (value: string) => void;
+  department: string;
+  setDepartment: (value: string) => void;
+  departments?: string[];
+}
+
 const EmployeeSearchBox = ({
   search,
   setSearch,
   department,
   setDepartment,
   departments = [],
-}) => {
+}: EmployeeSearchBoxProps) => {
   return (
     <section className="mb-[22px] flex w-full items-center gap-3 max-[600px]:mb-[18px] max-[600px]:flex-col max-[600px]:items-stretch max-[600px]:gap-2.5">
       <div className="flex h-12 min-w-0 flex-1 items-center rounded-[14px] border border-[#dfe5ec] bg-[#f8fafc] px-[18px] max-[600px]:h-[46px] max-[600px]:w-full max-[600px]:flex-none max-[600px]:px-[13px] max-[360px]:px-2.5">
