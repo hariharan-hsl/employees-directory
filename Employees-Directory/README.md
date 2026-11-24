@@ -1,396 +1,264 @@
 # Employee Directory
 
-Employee Directory is a responsive React application for viewing, searching, filtering, and adding employee records. Existing users are loaded from the public DummyJSON API, while newly created employees are stored locally in the browser.
+Employee Directory is a responsive web application for viewing and managing employee information. It loads employee records from the public DummyJSON Users API and allows users to search, filter, add, and view employee details.
 
-## Table of Contents
-
-- [Overview](#overview)
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Application Workflow](#application-workflow)
-- [Project Structure](#project-structure)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Available Scripts](#available-scripts)
-- [Environment Notes](#environment-notes)
-- [Data Sources and Persistence](#data-sources-and-persistence)
-- [Routes](#routes)
-- [Search and Filter Behavior](#search-and-filter-behavior)
-- [Form Validation](#form-validation)
-- [Development Workflow](#development-workflow)
-- [Production Build](#production-build)
-- [Troubleshooting](#troubleshooting)
-- [Known Limitations](#known-limitations)
-- [Future Enhancements](#future-enhancements)
-- [Author](#author)
-
-## Overview
-
-The application has two main sections:
-
-1. **Employee listing** - Displays a summary, department filters, search controls, employee cards, and a load-more control.
-2. **Employee management** - Provides an add-employee form and a detail view for individual employees.
-
-Redux Toolkit maintains employee and filter state. React Router controls page navigation. Vite provides the development server and production build.
+The project was created to practice React, TypeScript, Redux Toolkit, React Router, Tailwind CSS, API integration, and browser data storage.
 
 ## Features
 
-- Loads employee records from DummyJSON.
-- Displays employee cards with name, designation, department, and profile image.
-- Searches by name, email, or designation.
-- Filters employees by department.
-- Clears active search and department filters.
-- Loads additional employee records in batches.
-- Adds locally persisted employees with a default profile image.
-- Validates all required employee fields and reports inline errors.
-- Shows employee details, personal information, and address.
-- Handles loading, empty, API error, and employee-not-found states.
-- Provides desktop, tablet, and mobile layouts.
+- View a summary of loaded employees and departments
+- Load employee records from the DummyJSON Users API
+- Search employees by name, email, or job designation
+- Filter employees by department
+- Clear search and department filters
+- Load more employees in batches
+- Add a new employee using a validated form
+- Save newly added employees in browser `localStorage`
+- View personal, company, and address details
+- Use responsive layouts on desktop, tablet, and mobile screens
+- View loading, error, empty, and employee-not-found states
 
-## Tech Stack
+## Technologies Used
 
 | Area | Technology |
 |---|---|
-| UI | React 19 |
+| Frontend | React 19 |
 | Language | TypeScript |
-| Routing | React Router 7 |
-| State management | Redux Toolkit |
-| React Redux bindings | React Redux |
+| Routing | React Router DOM 7 |
+| State Management | Redux Toolkit and React Redux |
 | Styling | Tailwind CSS 4 |
-| Build tool | Vite 8 |
-| Linting | Oxlint |
-| External employee data | DummyJSON Users API |
-| Local persistence | Browser `localStorage` |
+| Build Tool | Vite 8 |
+| Linter | Oxlint |
+| Employee API | DummyJSON Users API |
+| Local Storage | Browser `localStorage` |
+| Icons | Font Awesome |
+| Font | Google Fonts - Poppins |
 
-## Application Workflow
-
-```text
-Browser
-  |
-  | loads React application
-  v
-Redux Provider + BrowserRouter
-  |
-  +--> App
-  |      |
-  |      +--> fetchEmployees async thunk
-  |      |      |
-  |      |      +--> GET https://dummyjson.com/users?limit=20&skip=0
-  |      |      |
-  |      |      +--> merge locally saved employees with API users
-  |      |
-  |      +--> employee and filter state in Redux
-  |
-  +--> / ------------------------ Employee list
-  |      |                         |
-  |      |                         +--> debounced search
-  |      |                         +--> department filter
-  |      |                         +--> selector produces filtered list
-  |      |                         +--> Load More fetches the next batch
-  |
-  +--> /add ---------------------- Add employee form
-  |      |                         |
-  |      |                         +--> field validation
-  |      |                         +--> addEmployee async thunk
-  |      |                         +--> save in localStorage
-  |      |                         +--> redirect to home
-  |
-  +--> /employee/:id ------------ Employee details
-                                   |
-                                   +--> use Redux record if already loaded
-                                   +--> otherwise fetch from DummyJSON
-```
-
-## Project Structure
+## Project Folder Structure
 
 ```text
 Employees-Directory/
-|
-|-- public/                         Static files served as-is
-|   |-- default-user.svg
-|   |-- favicon.svg
-|   `-- icons.svg
-|
-|-- src/
-|   |-- assets/                     Imported images
-|   |   |-- hero.png
-|   |   `-- user.png
-|   |
-|   |-- Components/                 Reusable presentation components
-|   |   |-- Header.tsx
-|   |   |-- SummarySection.tsx
-|   |   |-- EmployeeSearchBox.tsx
-|   |   |-- EmployeeList.tsx
-|   |   `-- EmployeeCard.tsx
-|   |
-|   |-- Pages/                      Route-level pages
-|   |   |-- Home.tsx
-|   |   |-- AddEmployee.tsx
-|   |   |-- EmployeeDetails.tsx
-|   |   `-- NotFound.tsx
-|   |
-|   |-- features/
-|   |   |-- employees/
-|   |   |   |-- employeesSlice.ts
-|   |   |   `-- employeeSelectors.ts
-|   |   `-- filters/
-|   |       `-- filtersSlice.ts
-|   |
-|   |-- hooks/
-|   |   |-- useDebounce.ts
-|   |   `-- useFetch.ts
-|   |
-|   |-- store/
-|   |   `-- store.ts
-|   |
-|   |-- App.tsx                    Application routes
-|   |-- api.ts                     Employee API and localStorage helpers
-|   |-- db.json                    Local reference data
-|   |-- index.css                  Global and Tailwind styles
-|   |-- main.tsx                   React and Redux entry point
-|   `-- types.ts                   Shared TypeScript interfaces
-|
-|-- index.html
-|-- package.json
-|-- package-lock.json
-|-- tsconfig.json
-|-- .gitignore
-`-- README.md
+├── public/
+│   ├── default-user.svg
+│   ├── favicon.svg
+│   └── icons.svg
+├── src/
+│   ├── assets/
+│   │   ├── hero.png
+│   │   ├── react.svg
+│   │   ├── user.png
+│   │   └── vite.svg
+│   ├── Components/
+│   │   ├── EmployeeCard.tsx
+│   │   ├── EmployeeList.tsx
+│   │   ├── EmployeeSearchBox.tsx
+│   │   ├── Header.tsx
+│   │   └── SummarySection.tsx
+│   ├── Pages/
+│   │   ├── AddEmployee.tsx
+│   │   ├── EmployeeDetails.tsx
+│   │   ├── Home.tsx
+│   │   └── NotFound.tsx
+│   ├── features/
+│   │   ├── employees/
+│   │   │   ├── employeesSlice.ts
+│   │   │   └── employeeSelectors.ts
+│   │   └── filters/
+│   │       └── filtersSlice.ts
+│   ├── hooks/
+│   │   ├── useDebounce.ts
+│   │   └── useFetch.ts
+│   ├── store/
+│   │   └── store.ts
+│   ├── App.tsx
+│   ├── api.ts
+│   ├── db.json
+│   ├── index.css
+│   ├── main.tsx
+│   └── types.ts
+├── .gitignore
+├── index.html
+├── package-lock.json
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
 ```
 
-Generated folders such as `node_modules/` and `dist/` should not be committed. The committed source of truth is the `src/` directory.
+Folders such as `node_modules/` and `dist/` are generated locally and are not included in the source structure.
 
 ## Prerequisites
 
-Install the following before running the project:
+Before starting, install:
 
-- Node.js 20 or a newer supported Node.js LTS release
-- npm included with Node.js
-- Internet access for the DummyJSON API
+- Node.js 20.19 or newer LTS, or Node.js 22.12 or newer
+- npm
 - A modern browser
+- Internet access to load employee data from DummyJSON
 
-Verify the installation:
+Check the installations:
 
 ```bash
 node --version
 npm --version
 ```
 
-## Installation
+## Installation and Setup
 
-From Windows PowerShell or Command Prompt:
+1. Clone the repository:
 
-```powershell
-git clone <repository-url>
-cd <repository-folder>\Employees-Directory
-npm install
-npm run dev
+   ```bash
+   git clone https://github.com/hariharan-hsl/employees-directory.git
+   ```
+
+2. Open the project folder:
+
+   ```bash
+   cd employees-directory/Employees-Directory
+   ```
+
+3. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+4. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+5. Open the local URL shown in the terminal. Vite normally uses:
+
+   ```text
+   http://localhost:5173/
+   ```
+
+## Environment Variables
+
+This project does not currently use a `.env` file or environment variables.
+
+The following values are configured directly in the source code:
+
+| Setting | Location | Current Value |
+|---|---|---|
+| Employee API URL | `src/api.ts` | `https://dummyjson.com/users` |
+| Local employee storage key | `src/api.ts` | `employees-directory:employees` |
+| Default employee image | `src/api.ts` | `src/assets/user.png` |
+
+If environment variables are added later, create a `.env` file in the project root, for example:
+
+```env
+VITE_API_BASE_URL=https://dummyjson.com/users
 ```
 
-Open the URL printed by Vite, normally:
+No such variable is required by the current implementation.
 
-```text
-http://localhost:5173/
-```
+## How to Run the Project
 
-Use the repository folder name and URL that match your GitHub clone.
-
-## Available Scripts
-
-Run these commands from the `Employees-Directory` directory:
+Run commands from the `Employees-Directory` folder.
 
 | Command | Purpose |
 |---|---|
-| `npm run dev` | Start the Vite development server |
-| `npm start` | Alias for `npm run dev` |
-| `npm run build` | Create an optimized production build in `dist/` |
+| `npm run dev` | Start the development server |
+| `npm start` | Start the development server using the npm start alias |
+| `npm run build` | Create a production build in `dist/` |
 | `npm run preview` | Preview the production build locally |
-| `npm run lint` | Run Oxlint across the project |
+| `npm run lint` | Run Oxlint |
 
-Example:
-
-```powershell
-npm run lint
-npm run build
-```
-
-## Environment Notes
-
-This project does not require a `.env` file. API and storage configuration is currently defined directly in the source:
-
-- API URL: `src/api.ts`
-- Local storage key: `employees-directory:employees`
-- Default profile image: `src/assets/user.png`
-
-The DummyJSON API and browser local storage can change application behavior. The API is external and must remain reachable for remote employee data.
-
-## Data Sources and Persistence
-
-### Existing Employees
-
-The application requests 20 employees first. Additional requests load 10 employees at a time. The API response supplies employee identity, name, contact details, company, address, age, and profile image.
-
-### Locally Added Employees
-
-The add form:
-
-1. Validates the employee fields.
-2. Creates a local ID beginning with `local-`.
-3. Adds the default profile image.
-4. Saves the employee array in browser `localStorage`.
-5. Immediately prepends the employee to the Redux employee list.
-6. Returns the user to the home page.
-
-Locally added records are browser-specific and are not uploaded to DummyJSON. Clearing the browser's site data removes these records.
-
-Employee data is not permanently shared across devices or browsers.
-
-## Routes
-
-| Route | Component | Purpose |
-|---|---|---|
-| `/` | `Home` | Employee summary, search, filters, and list |
-| `/add` | `AddEmployee` | Add a new employee |
-| `/employee/:id` | `EmployeeDetails` | View one employee |
-| Any unmatched route | `NotFound` | Not-found page |
-
-## Search and Filter Behavior
-
-- Search text is debounced by 400 milliseconds.
-- Search is case-insensitive and matches trimmed text.
-- Search matches full name, email, or job designation.
-- Department filtering matches the employee's company department.
-- `All` removes the department constraint.
-- Clearing filters resets search and department state.
-- If no record matches, the application displays an empty-result message.
-
-## Form Validation
-
-The add-employee form validates the following fields:
-
-| Field | Rules |
-|---|---|
-| First name | Required, minimum 3 letters, letters only |
-| Last name | Required, minimum 3 letters, letters only |
-| Email | Required, valid email format, must be unique |
-| Phone | Required, exactly 10 digits |
-| Designation | Required |
-| Department | Required |
-| Age | Required integer from 18 through 100 |
-| Address | Required |
-| City | Required |
-| State | Required |
-| Pincode | Required, exactly 6 digits |
-| Country | Required |
-
-Validation runs on blur and again at form submission. Invalid submission does not save or navigate.
-
-## Development Workflow
-
-1. Create or select a Git branch.
-2. Start the app with `npm run dev`.
-3. Make changes in `src/`.
-4. Follow the existing Redux slice, selector, component, and page patterns.
-5. Run `npm run lint`.
-6. Run `npm run build`.
-7. Review the UI at the Vite development URL.
-8. Commit only source and configuration files.
-
-```powershell
-git switch -c feature/your-change
+```bash
 npm run dev
 ```
 
-Before submitting a change, verify:
+To create and preview a production build:
 
-- The home page loads successfully.
-- Search and department filters return expected records.
-- Load More appends records.
-- The add form rejects invalid values.
-- A valid employee is saved and appears after navigation.
-- The employee details page works for an API employee and a local employee.
-- Browser navigation does not produce an unknown route.
-
-## Production Build
-
-Create the production bundle:
-
-```powershell
+```bash
 npm run build
-```
-
-Preview it locally:
-
-```powershell
 npm run preview
 ```
 
-Deploy the contents of `dist/` to a static web host. Configure the host to route browser paths such as `/add` and `/employee/1` back to `index.html` for client-side routing.
+## Application Routes
 
-## Troubleshooting
+| Route | Page | Purpose |
+|---|---|---|
+| `/` | `Home` | Employee summary, search, department filter, and employee list |
+| `/add` | `AddEmployee` | Add a new employee |
+| `/employee/:id` | `EmployeeDetails` | View one employee |
+| Any unmatched URL | `NotFound` | Show a not-found page |
 
-### Development server does not start
+## API Endpoints
 
-```powershell
-Remove-Item -Recurse -Force node_modules
-npm install
-npm run dev
+There is no custom backend in this project. The frontend directly calls the public DummyJSON API.
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| `GET` | `https://dummyjson.com/users?limit=20&skip=0` | Load the first 20 employees |
+| `GET` | `https://dummyjson.com/users?limit=10&skip=<number>` | Load the next 10 employees |
+| `GET` | `https://dummyjson.com/users/<id>` | Load one employee by ID |
+
+### Local Data
+
+New employees are not sent to DummyJSON. They are stored only in the browser using this key:
+
+```text
+employees-directory:employees
 ```
 
-Use this only in the project directory.
+The locally saved employee remains available in the same browser and only until browser site data is cleared.
 
-### Employee data does not load
+## Search and Add Behavior
 
-- Confirm internet connectivity.
-- Open `https://dummyjson.com/users?limit=20&skip=0` in a browser.
-- Check browser developer tools for failed network requests.
-- Use the retry control on the home page.
+- Employee search waits 400 milliseconds after typing before filtering.
+- Search is not case-sensitive.
+- Search checks the full name, email, and job designation.
+- Department filtering uses the employee's company department.
+- The add form requires and validates names, email, phone, designation, department, age, address, city, state, pincode, and country.
+- Names must contain at least 3 letters.
+- Phone numbers must contain exactly 10 digits.
+- Age must be an integer from 18 to 100.
+- Pincode must contain exactly 6 digits.
+- Duplicate email addresses are rejected.
+- Added employees receive a local ID beginning with `local-` and use the default profile image.
 
-### A local employee disappeared
+## Screenshots
 
-Local employees are stored in the current browser profile. They may disappear if site storage is cleared, private browsing is closed, or browser data is reset.
+Add project screenshots after running the application:
 
-### A production route shows a server 404
+### Home Page
 
-Configure the static host to rewrite unknown paths to `/index.html`.
+![Employee Directory Home Page](./screenshots/home.png)
 
-### Build or lint fails
+### Add Employee Page
 
-Run the commands separately to identify the exact source file:
+![Add Employee Page](./screenshots/add-employee.png)
 
-```powershell
-npm run lint
-npm run build
-```
+### Employee Details Page
 
-## Known Limitations
+![Employee Details Page](./screenshots/employee-details.png)
 
-- No backend database or shared employee API is implemented.
-- Employee creation does not update a remote server.
-- Employee editing and deletion are not implemented.
-- Authentication and authorization are not implemented.
-- Pagination is implemented as incremental loading rather than numbered pages.
-- Department options on the home page come from currently loaded employees.
-- The application depends on an external API for initial and paginated employee data.
+Create a `screenshots` folder and keep PNG or JPG images with these file names, or update the image paths above.
 
-## Future Enhancements
+## Future Improvements
 
-- Add create, edit, and delete APIs through a backend.
-- Move persistence from browser local storage to a database.
-- Add server-side authentication and role-based access.
-- Add sorting and numbered pagination.
-- Add image upload and profile image validation.
-- Add automated unit, integration, and end-to-end tests.
-- Add CI/CD and static-host deployment.
-- Add dark mode and expanded accessibility testing.
-- Replace the external demo API with organization-owned data.
+- Add a real backend and database
+- Add employee edit and delete functions
+- Move employee creation to a shared server API
+- Add authentication and role-based access
+- Add numbered pagination and sorting
+- Allow users to upload profile images
+- Add automated unit and end-to-end tests
+- Add a CI/CD pipeline
+- Add dark mode
+- Improve accessibility testing
+- Replace DummyJSON with a project-owned API
 
 ## Author
 
 **Hariharan**
 
-IT Employee | Aspiring Full-Stack Developer
+- GitHub: [hariharan-hsl](https://github.com/hariharan-hsl)
+- Email: [harihsl356@gmail.com](mailto:harihsl356@gmail.com)
 
 ## License
 
-This project is intended for learning and educational use.
+No license file is currently included in this repository. Therefore, reuse and distribution rights are not granted until the project owner adds a license.
