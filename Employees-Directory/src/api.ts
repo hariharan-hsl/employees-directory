@@ -1,6 +1,6 @@
 import userImage from "./assets/user.png";
 import type { ApiUsersResponse, Employee, EmployeeCreateData, EmployeeId, EmployeeResponse } from "./types";
-const employees_api = "https://dummyjson.com/users";
+const employees_api = import.meta.env.VITE_API_URL;
 const local_employees_key = "employees-directory:employees";
 const default_employee_image = userImage;
 
