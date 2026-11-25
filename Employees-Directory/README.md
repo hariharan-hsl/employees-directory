@@ -225,18 +225,22 @@ The locally saved employee remains available in the same browser and only until 
 Add project screenshots after running the application:
 
 ### Home Page
+<img width="1580" height="739" alt="image" src="https://github.com/user-attachments/assets/797ac073-8669-44d9-b3c9-c1618bf18177" />
 
-![Employee Directory Home Page](./screenshots/home.png)
 
 ### Add Employee Page
 
-![Add Employee Page](./screenshots/add-employee.png)
+<img width="775" height="520" alt="image" src="https://github.com/user-attachments/assets/3ebec726-30be-4127-ae27-8f80e543d443" />
+
 
 ### Employee Details Page
 
-![Employee Details Page](./screenshots/employee-details.png)
+<img width="765" height="396" alt="image" src="https://github.com/user-attachments/assets/4af0b0ce-5bbb-4db2-9c24-26d54ee7c55f" />
 
-Create a `screenshots` folder and keep PNG or JPG images with these file names, or update the image paths above.
+### Not Found Page
+
+<img width="761" height="371" alt="image" src="https://github.com/user-attachments/assets/7d8418a4-6112-469e-ac20-7e047971eb60" />
+
 
 ## Future Improvements
 
