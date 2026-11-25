@@ -229,9 +229,8 @@ Add project screenshots after running the application:
 
 
 ### Add Employee Page
-<img width="1583" height="741" alt="image" src="https://github.com/user-attachments/assets/bcaea918-9863-4fb3-bfbb-81a7ff686e89" />
-
 <img width="775" height="520" alt="image" src="https://github.com/user-attachments/assets/3ebec726-30be-4127-ae27-8f80e543d443" />
+<img width="1583" height="741" alt="image" src="https://github.com/user-attachments/assets/bcaea918-9863-4fb3-bfbb-81a7ff686e89" />
 
 
 ### Employee Details Page
