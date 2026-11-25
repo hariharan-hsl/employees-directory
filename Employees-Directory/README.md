@@ -243,9 +243,18 @@ The locally saved employee remains available in the same browser and only until 
 
 
 ## Mobile
+
+### Home Page
+
 <img width="446" height="655" alt="image" src="https://github.com/user-attachments/assets/7f11e90c-b7c2-431d-baa0-a1344eb29fa1" />
+
+### Add Employee Page
+
 <img width="375" height="604" alt="image" src="https://github.com/user-attachments/assets/4184e6b6-b073-4608-b8fc-2f356ec489b2" />
 <img width="349" height="602" alt="image" src="https://github.com/user-attachments/assets/b8cce14e-f835-462c-a26c-7becc5ada9c9" />
+
+### Employee Details Page
+
 <img width="410" height="639" alt="image" src="https://github.com/user-attachments/assets/a6e4fdff-6625-4278-99fb-cc5a805faf6a" />
 
 
