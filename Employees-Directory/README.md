@@ -220,9 +220,9 @@ The locally saved employee remains available in the same browser and only until 
 - Duplicate email addresses are rejected.
 - Added employees receive a local ID beginning with `local-` and use the default profile image.
 
-## Screenshots
+## Screenshots 
 
-Add project screenshots after running the application:
+## Destop
 
 ### Home Page
 <img width="1580" height="739" alt="image" src="https://github.com/user-attachments/assets/797ac073-8669-44d9-b3c9-c1618bf18177" />
@@ -240,6 +240,16 @@ Add project screenshots after running the application:
 ### Not Found Page
 
 <img width="761" height="371" alt="image" src="https://github.com/user-attachments/assets/7d8418a4-6112-469e-ac20-7e047971eb60" />
+
+
+## Mobile
+<img width="446" height="655" alt="image" src="https://github.com/user-attachments/assets/7f11e90c-b7c2-431d-baa0-a1344eb29fa1" />
+<img width="375" height="604" alt="image" src="https://github.com/user-attachments/assets/4184e6b6-b073-4608-b8fc-2f356ec489b2" />
+<img width="349" height="602" alt="image" src="https://github.com/user-attachments/assets/b8cce14e-f835-462c-a26c-7becc5ada9c9" />
+<img width="410" height="639" alt="image" src="https://github.com/user-attachments/assets/a6e4fdff-6625-4278-99fb-cc5a805faf6a" />
+
+
+
 
 
 ## Future Improvements
