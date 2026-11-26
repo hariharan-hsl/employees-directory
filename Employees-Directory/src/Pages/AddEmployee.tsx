@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import type { ChangeEvent, FormEvent, FocusEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,7 +6,12 @@ import userImage from "../assets/user.png";
 import { addEmployee } from "../features/employees/employeesSlice";
 import { selectAllEmployees } from "../features/employees/employeeSelectors";
 import type { AppDispatch, RootState } from "../store/store";
-import type { Department, EmployeeCreateData, EmployeeForm, FormErrors } from "../types";
+import type {
+  Department,
+  EmployeeCreateData,
+  EmployeeForm,
+  FormErrors,
+} from "../types";
 import { departmentOptions } from "../types";
 
 const initialForm: EmployeeForm = {
@@ -25,13 +29,19 @@ const initialForm: EmployeeForm = {
   country: "",
 };
 
-
-
 const trimFormValues = (form: EmployeeForm): EmployeeForm => ({
-  firstName: form.firstName.trim(), lastName: form.lastName.trim(), email: form.email.trim(),
-  phone: form.phone.trim(), designation: form.designation.trim(), department: form.department,
-  age: form.age.trim(), address: form.address.trim(), city: form.city.trim(), state: form.state.trim(),
-  postalCode: form.postalCode.trim(), country: form.country.trim(),
+  firstName: form.firstName.trim(),
+  lastName: form.lastName.trim(),
+  email: form.email.trim(),
+  phone: form.phone.trim(),
+  designation: form.designation.trim(),
+  department: form.department,
+  age: form.age.trim(),
+  address: form.address.trim(),
+  city: form.city.trim(),
+  state: form.state.trim(),
+  postalCode: form.postalCode.trim(),
+  country: form.country.trim(),
 });
 
 const fieldClassName =
@@ -45,13 +55,14 @@ const submitErrorMessageClassName =
 
 const AddEmployee = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const employees = useSelector((state: RootState) => selectAllEmployees(state));
+  const employees = useSelector((state: RootState) =>
+    selectAllEmployees(state),
+  );
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState(initialForm);
   const [saving, setSaving] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
-
 
   const validate = (form: EmployeeForm): FormErrors => {
     const errors: FormErrors = {};
@@ -65,7 +76,6 @@ const AddEmployee = () => {
     const department = trimmedForm.department;
     const age = trimmedForm.age;
     const postalCode = trimmedForm.postalCode;
-
 
     const namePattern = /^[A-Za-z]+$/;
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -94,7 +104,7 @@ const AddEmployee = () => {
     } else if (
       employees.some(
         (employee) =>
-          employee.email?.trim().toLowerCase() === email.toLowerCase()
+          employee.email?.trim().toLowerCase() === email.toLowerCase(),
       )
     ) {
       errors.email = "This email already exists";
@@ -116,7 +126,11 @@ const AddEmployee = () => {
 
     if (!age) {
       errors.age = "Age is required";
-    } else if (!Number.isInteger(Number(age)) || Number(age) < 18 || Number(age) > 100) {
+    } else if (
+      !Number.isInteger(Number(age)) ||
+      Number(age) < 18 ||
+      Number(age) > 100
+    ) {
       errors.age = "Age must be a whole number between 18 and 100";
     }
 
@@ -145,8 +159,9 @@ const AddEmployee = () => {
     return errors;
   };
 
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
     const { name, value } = e.target;
 
     setFormData((previous) => {
@@ -218,14 +233,12 @@ const AddEmployee = () => {
         },
       };
 
-  //2-second timer
-  await Promise.all([
-    dispatch(addEmployee(employeeData)).unwrap(),
+      //2-second timer
+      await Promise.all([
+        dispatch(addEmployee(employeeData)).unwrap(),
 
-    new Promise((resolve) => setTimeout(resolve, 1000)),
-  ]);
-
-
+        new Promise((resolve) => setTimeout(resolve, 1000)),
+      ]);
 
       setFormData(initialForm);
       setErrors({});
@@ -234,7 +247,8 @@ const AddEmployee = () => {
     } catch (error) {
       setErrors((previous) => ({
         ...previous,
-        submit: error instanceof Error ? error.message : "Unable to add employee",
+        submit:
+          error instanceof Error ? error.message : "Unable to add employee",
       }));
     } finally {
       setSaving(false);
@@ -245,8 +259,12 @@ const AddEmployee = () => {
     <div className="mx-auto my-10 max-w-[900px] p-5 max-[600px]:my-5 max-[600px]:p-[14px]">
       <div className="mb-[25px] flex items-center justify-between">
         <div>
-          <h2 className="m-0 text-[26px] font-bold text-[#172033] max-[600px]:text-[21px]">Add New Employee</h2>
-          <p className="mt-2 text-[#737b85]">Enter the employee details below.</p>
+          <h2 className="m-0 text-[26px] font-bold text-[#172033] max-[600px]:text-[21px]">
+            Add New Employee
+          </h2>
+          <p className="mt-2 text-[#737b85]">
+            Enter the employee details below.
+          </p>
         </div>
 
         <Link to="/" className="font-semibold text-[#08764f] no-underline">
@@ -260,7 +278,11 @@ const AddEmployee = () => {
         noValidate
       >
         <div className="mb-6 flex items-center gap-[14px] text-sm text-slate-500">
-          <img className="h-[72px] w-[72px] rounded-full bg-slate-100 object-cover" src={userImage} alt="Default employee profile" />
+          <img
+            className="h-[72px] w-[72px] rounded-full bg-slate-100 object-cover"
+            src={userImage}
+            alt="Default employee profile"
+          />
           <span>Default employee photo</span>
         </div>
 
@@ -275,13 +297,21 @@ const AddEmployee = () => {
               onBlur={handleBlur}
               placeholder="Enter first name"
               aria-invalid={Boolean(errors.firstName)}
-              aria-describedby={errors.firstName ? "firstName-error" : undefined}
+              aria-describedby={
+                errors.firstName ? "firstName-error" : undefined
+              }
               className={`${fieldClassName} ${errors.firstName ? fieldErrorClassName : ""}`}
             />
             {errors.firstName && (
-              <p id="firstName-error" className={fieldErrorMessageClassName} role="alert">{errors.firstName}</p>
+              <p
+                id="firstName-error"
+                className={fieldErrorMessageClassName}
+                role="alert"
+              >
+                {errors.firstName}
+              </p>
             )}
-          </div>
+          </div> 
 
           <div className="flex flex-col gap-2">
             <label className={labelClassName}>Last Name</label>
@@ -297,7 +327,13 @@ const AddEmployee = () => {
               className={`${fieldClassName} ${errors.lastName ? fieldErrorClassName : ""}`}
             />
             {errors.lastName && (
-              <p id="lastName-error" className={fieldErrorMessageClassName} role="alert">{errors.lastName}</p>
+              <p
+                id="lastName-error"
+                className={fieldErrorMessageClassName}
+                role="alert"
+              >
+                {errors.lastName}
+              </p>
             )}
           </div>
 
@@ -315,7 +351,13 @@ const AddEmployee = () => {
               className={`${fieldClassName} ${errors.email ? fieldErrorClassName : ""}`}
             />
             {errors.email && (
-              <p id="email-error" className={fieldErrorMessageClassName} role="alert">{errors.email}</p>
+              <p
+                id="email-error"
+                className={fieldErrorMessageClassName}
+                role="alert"
+              >
+                {errors.email}
+              </p>
             )}
           </div>
 
@@ -333,7 +375,13 @@ const AddEmployee = () => {
               className={`${fieldClassName} ${errors.phone ? fieldErrorClassName : ""}`}
             />
             {errors.phone && (
-              <p id="phone-error" className={fieldErrorMessageClassName} role="alert">{errors.phone}</p>
+              <p
+                id="phone-error"
+                className={fieldErrorMessageClassName}
+                role="alert"
+              >
+                {errors.phone}
+              </p>
             )}
           </div>
 
@@ -347,11 +395,19 @@ const AddEmployee = () => {
               onBlur={handleBlur}
               placeholder="e.g. Frontend Developer"
               aria-invalid={Boolean(errors.designation)}
-              aria-describedby={errors.designation ? "designation-error" : undefined}
+              aria-describedby={
+                errors.designation ? "designation-error" : undefined
+              }
               className={`${fieldClassName} ${errors.designation ? fieldErrorClassName : ""}`}
             />
             {errors.designation && (
-              <p id="designation-error" className={fieldErrorMessageClassName} role="alert">{errors.designation}</p>
+              <p
+                id="designation-error"
+                className={fieldErrorMessageClassName}
+                role="alert"
+              >
+                {errors.designation}
+              </p>
             )}
           </div>
 
@@ -363,7 +419,9 @@ const AddEmployee = () => {
               onChange={handleChange}
               onBlur={handleBlur}
               aria-invalid={Boolean(errors.department)}
-              aria-describedby={errors.department ? "department-error" : undefined}
+              aria-describedby={
+                errors.department ? "department-error" : undefined
+              }
               className={`${fieldClassName} ${errors.department ? fieldErrorClassName : ""}`}
             >
               <option value="IT">IT</option>
@@ -374,7 +432,13 @@ const AddEmployee = () => {
               <option value="Finance">Finance</option>
             </select>
             {errors.department && (
-              <p id="department-error" className={fieldErrorMessageClassName} role="alert">{errors.department}</p>
+              <p
+                id="department-error"
+                className={fieldErrorMessageClassName}
+                role="alert"
+              >
+                {errors.department}
+              </p>
             )}
           </div>
 
@@ -395,12 +459,20 @@ const AddEmployee = () => {
               className={`${fieldClassName} ${errors.age ? fieldErrorClassName : ""}`}
             />
             {errors.age && (
-              <p id="age-error" className={fieldErrorMessageClassName} role="alert">{errors.age}</p>
+              <p
+                id="age-error"
+                className={fieldErrorMessageClassName}
+                role="alert"
+              >
+                {errors.age}
+              </p>
             )}
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className={labelClassName} htmlFor="address">Street Address</label>
+            <label className={labelClassName} htmlFor="address">
+              Street Address
+            </label>
             <input
               id="address"
               type="text"
@@ -414,12 +486,20 @@ const AddEmployee = () => {
               className={`${fieldClassName} ${errors.address ? fieldErrorClassName : ""}`}
             />
             {errors.address && (
-              <p id="address-error" className={fieldErrorMessageClassName} role="alert">{errors.address}</p>
+              <p
+                id="address-error"
+                className={fieldErrorMessageClassName}
+                role="alert"
+              >
+                {errors.address}
+              </p>
             )}
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className={labelClassName} htmlFor="city">City</label>
+            <label className={labelClassName} htmlFor="city">
+              City
+            </label>
             <input
               id="city"
               type="text"
@@ -433,13 +513,20 @@ const AddEmployee = () => {
               className={`${fieldClassName} ${errors.city ? fieldErrorClassName : ""}`}
             />
             {errors.city && (
-              <p id="city-error" className={fieldErrorMessageClassName} role="alert">{errors.city}</p>
+              <p
+                id="city-error"
+                className={fieldErrorMessageClassName}
+                role="alert"
+              >
+                {errors.city}
+              </p>
             )}
           </div>
 
           <div className="flex flex-col gap-2">
-          
-            <label className={labelClassName} htmlFor="state">State</label>
+            <label className={labelClassName} htmlFor="state">
+              State
+            </label>
             <input
               id="state"
               type="text"
@@ -453,12 +540,20 @@ const AddEmployee = () => {
               className={`${fieldClassName} ${errors.state ? fieldErrorClassName : ""}`}
             />
             {errors.state && (
-              <p id="state-error" className={fieldErrorMessageClassName} role="alert">{errors.state}</p>
+              <p
+                id="state-error"
+                className={fieldErrorMessageClassName}
+                role="alert"
+              >
+                {errors.state}
+              </p>
             )}
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className={labelClassName} htmlFor="postalCode">Pincode</label>
+            <label className={labelClassName} htmlFor="postalCode">
+              Pincode
+            </label>
             <input
               id="postalCode"
               type="text"
@@ -471,16 +566,26 @@ const AddEmployee = () => {
               inputMode="numeric"
               maxLength={6}
               aria-invalid={Boolean(errors.postalCode)}
-              aria-describedby={errors.postalCode ? "postalCode-error" : undefined}
+              aria-describedby={
+                errors.postalCode ? "postalCode-error" : undefined
+              }
               className={`${fieldClassName} ${errors.postalCode ? fieldErrorClassName : ""}`}
             />
             {errors.postalCode && (
-              <p id="postalCode-error" className={fieldErrorMessageClassName} role="alert">{errors.postalCode}</p>
+              <p
+                id="postalCode-error"
+                className={fieldErrorMessageClassName}
+                role="alert"
+              >
+                {errors.postalCode}
+              </p>
             )}
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className={labelClassName} htmlFor="country">Country</label>
+            <label className={labelClassName} htmlFor="country">
+              Country
+            </label>
             <input
               id="country"
               type="text"
@@ -494,7 +599,13 @@ const AddEmployee = () => {
               className={`${fieldClassName} ${errors.country ? fieldErrorClassName : ""}`}
             />
             {errors.country && (
-              <p id="country-error" className={fieldErrorMessageClassName} role="alert">{errors.country}</p>
+              <p
+                id="country-error"
+                className={fieldErrorMessageClassName}
+                role="alert"
+              >
+                {errors.country}
+              </p>
             )}
           </div>
         </div>
@@ -506,17 +617,20 @@ const AddEmployee = () => {
         )}
 
         <div className="mt-[30px] flex justify-end gap-3 max-[600px]:flex-col-reverse">
-          <Link to="/" className="cursor-pointer rounded-lg border border-gray-300 bg-white px-[22px] py-3 text-center text-sm font-semibold text-slate-600 no-underline">
+          <Link
+            to="/"
+            className="cursor-pointer rounded-lg border border-gray-300 bg-white px-[22px] py-3 text-center text-sm font-semibold text-slate-600 no-underline"
+          >
             Cancel
           </Link>
 
           <button
-  type="submit"
-  disabled={saving}
-  className="cursor-pointer rounded-lg border-0 bg-[#08764f] px-[22px] py-3 text-sm font-semibold text-white hover:bg-[#065f40] disabled:cursor-not-allowed disabled:opacity-60"
->
-  {saving ? "Adding..." : "Add Employee"}
-</button>
+            type="submit"
+            disabled={saving}
+            className="cursor-pointer rounded-lg border-0 bg-[#08764f] px-[22px] py-3 text-sm font-semibold text-white hover:bg-[#065f40] disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {saving ? "Adding..." : "Add Employee"}
+          </button>
         </div>
       </form>
     </div>
