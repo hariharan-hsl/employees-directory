@@ -4,6 +4,10 @@ Employee Directory is a responsive web application for viewing and managing empl
 
 The project was created to practice React, TypeScript, Redux Toolkit, React Router, Tailwind CSS, API integration, and browser data storage.
 
+# Live link
+
+https://employees-directory-eta.vercel.app/
+
 ## Features
 
 - View a summary of loaded employees and departments
